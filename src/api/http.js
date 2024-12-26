@@ -13,7 +13,14 @@ axiosInstanceWithToken.interceptors.request.use(
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-    }
+    } else {
+        return Promise.reject({
+            response: {
+              status: 400,
+              data: 'Token 不存在，请先登录'
+            }
+          });
+      }
     return config;
   },
   error => {
