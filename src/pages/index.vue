@@ -2,7 +2,8 @@
     <div class="app-container">
         <AppHeader />
         <app-container></app-container>
-        <!-- <app-footer></app-footer> -->
+        <app-footer></app-footer>
+        <FindUs />
     </div>
   
 

@@ -45,7 +45,7 @@
 
             </v-container>
         </v-main>
-        <div ref="map" v-if="showPlan" style=" height: 300px;width: 100%;"></div>
+        <div ref="map" v-if="showPlan" style=" height: 50vw;width: 100%;"></div>
         <!-- <GoogleMap></GoogleMap> -->
         <!-- <v-dialog v-model="isDialogVisible" max-width="500">
             <template v-slot:default>
@@ -283,7 +283,7 @@ const buttonEmit = async (button, parent) => {
 
         } else if (button == 'plan') {
             res = await getPlan({
-                size: '600x200',
+                size: '600x300',
                 lat: location.latitude,
                 lng: location.longitude
             });
@@ -293,7 +293,7 @@ const buttonEmit = async (button, parent) => {
             }
         } else if (button == 'chat') {
             res = await getChat({
-                size: '600x200',
+                size: '300x600',
                 lat: location.latitude,
                 lng: location.longitude
             });

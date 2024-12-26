@@ -21,3 +21,8 @@ export const getChat = (data) => {
     );
 }
 
+export const findUs = (data) => {
+    return axiosInstanceWithoutToken.post(`/mail/send`, data
+    );
+}
+
