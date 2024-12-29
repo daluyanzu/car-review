@@ -26,9 +26,9 @@ const router = useRouter()
 // const route = useRoute()
  
 const login = () => {
-    router.push({
-    path: '/login',
-  })
+//     router.push({
+//     path: '/login',
+//   })
 }
   
 

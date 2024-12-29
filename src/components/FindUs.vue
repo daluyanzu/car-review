@@ -3,20 +3,22 @@
         <img style="height:70%;width:70%;" src="data:image/svg+xml;charset=utf-8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyBjbGFzcz0iaWNvbiIgd2lkdGg9IjIwMHB4IiBoZWlnaHQ9IjIwMC4wMHB4IiB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZmlsbD0iIzUxNTE1MSIgZD0iTTgwMy45ODUgNDA1LjA3NmMtMC41MjcgOC4zNDItMS40NTYgMTcuMDM2LTIuNzM1IDI2LjE2OS0yMS43MjkgMTUwLjM4LTE0MC44NzcgMjU5LjQ4OS0yODMuNDYgMjU5LjQ4OWgtNDYuMzcxbC04LjUzMSA4Ljc2N2MzMi4wMTYgNTkuNTE2IDkxLjUzNCA5Ny45NjggMTU4LjQwNCA5Ny45NjhoNDYuMDhsOTEuMzQ4IDk1LjY3YzUuODk2IDUuODk1IDEzLjg3NSA5LjEyIDIyLjA4IDkuMTIgMy43ODkgMCA3LjY3Ny0wLjQyNyAxMS4zOTEtMi4wMDggMTEuNTA1LTQuNzQxIDE5LjEwOC0xNS44ODIgMTkuMTA4LTI4LjYwM3YtNzcuNzY3Yzg1LjAyMy0xNy40MDIgMTQ3Ljg3OC05Ny41NTQgMTQ3Ljg3OC0xOTQuMDAzIDAtOTguNDA0LTY3LjQyMS0xODAuMTM2LTE1NS4xOTItMTk0LjgwMnpNNTE3Ljc5IDEyMS43NEgzMDcuODg1QzE3My44MiAxMjEuNzQgNjQuODIgMjM5LjYxNSA2NC44MiAzODQuNDUyYzAgMTI5Ljc0NCA4NS44MDIgMjM2Ljg0MyAyMDAuODk2IDI1OC4yNzF2MTEwLjdjMCAxNC4yOSA4LjgyIDI3LjM3NSAyMi4yNyAzMi45N2EzOC4xMzggMzguMTM4IDAgMCAwIDEzLjI2IDIuMzg0YzkuNTEgMCAxOC44NjktMy41ODggMjUuNjk0LTEwLjcxNWwxMjUuNzM0LTEzMS4zMzhoNjUuMTE0YzEyMC40OSAwIDIyMS4zOTYtOTMuMjc0IDIzOS45NTEtMjIxLjgwMSAyLjEzMy0xNC43MjkgMy4xMTItMjguMTc3IDMuMTEyLTQwLjQ3MSAwLjAwMS0xNDQuODM3LTEwOC45OTgtMjYyLjcxMi0yNDMuMDYyLTI2Mi43MTJ6TTI0Mi4wMDYgNDEzLjc5NGMtMTkuNjcyIDAtMzUuNjE3LTE1Ljk0NS0zNS42MTctMzUuNjAzIDAtMTkuNjcgMTUuOTQ1LTM1LjYxNiAzNS42MTctMzUuNjE2czM1LjYwNiAxNS45NDYgMzUuNjA2IDM1LjYxNmMwIDE5LjY2LTE1LjkzNCAzNS42MDMtMzUuNjA2IDM1LjYwM3ogbTE4NC40NzQgMGMtMTkuNjczIDAtMzUuNjA1LTE1Ljk0NS0zNS42MDUtMzUuNjAzIDAtMTkuNjcgMTUuOTMyLTM1LjYxNiAzNS42MDUtMzUuNjE2IDE5LjY3MiAwIDM1LjYwNSAxNS45NDYgMzUuNjA1IDM1LjYxNiAwIDE5LjY2LTE1LjkzMyAzNS42MDMtMzUuNjA1IDM1LjYwM3ogbTE4NC40NzQgMGMtMTkuNjYgMC0zNS42MDQtMTUuOTQ1LTM1LjYwNC0zNS42MDMgMC0xOS42NyAxNS45NDUtMzUuNjE2IDM1LjYwNC0zNS42MTYgMTkuNjczIDAgMzUuNjE5IDE1Ljk0NiAzNS42MTkgMzUuNjE2IDAgMTkuNjYtMTUuOTQ2IDM1LjYwMy0zNS42MTkgMzUuNjAzeiIgLz48L3N2Zz4=" />
     </div>
     <v-expand-transition>
+     
     <v-card
-    class="mx-auto chat-container"
+    class="mx-auto chat-container  scrollable-content"
     elevation="1"
     width="90vw"
+    height="34vh"
     theme="light"
     v-if="findInfo"
   >
     <v-card-title class="py-5 font-weight-black"></v-card-title>
 
-    <v-card-text style="fontSize:20px">
+    <v-card-text class="py-5 font-weight-black">
         Welcome to consult about RV matters, we are at your service
     </v-card-text>
     
-    <v-card-text>
+    <v-card-text class="py-5 font-weight-black">
       <div class="text-subtitle-2 font-weight-black mb-1">Is this your first time buying an RV?</div>
 
       <div>
@@ -34,7 +36,7 @@
       ></v-radio>
     </v-radio-group>
       </div>
-      <div class="text-subtitle-2 font-weight-black mb-1">Please leave your name</div>
+      <div class="py-5 font-weight-black">Please leave your name</div>
 
 <v-text-field
   label="Enter value here"
@@ -67,14 +69,6 @@
 
           <v-btn value="email">
             <i class="material-icons">email</i> 
-          </v-btn>
-
-          <v-btn value="SMS">
-            <i class="material-icons">message</i> 
-          </v-btn>
-
-          <v-btn value="Other">
-            <i class="material-icons">more</i> 
           </v-btn>
         </v-btn-toggle>
       </v-col>
@@ -174,9 +168,13 @@
 <script setup>
 import { findUs } from '../api/mapApi.js'
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+const router = useRouter()
     const findInfo = ref(false)
     const goFindUs = () => {
-        findInfo.value = true
+      router.push({
+          path: '/consult'
+      })
     }
     const close = () => {
         findInfo.value = false
@@ -211,6 +209,10 @@ import { ref } from 'vue';
 </script>
 
 <style scoped>
+.scrollable-content {
+  max-height: 200px; /* 设置最大高度 */
+  overflow-y: auto; /* 超出时滚动 */
+}
 
 .find-us-container {
     position: fixed;

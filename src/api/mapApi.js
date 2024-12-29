@@ -16,13 +16,23 @@ export const getPlan = (data) => {
     );
 }
 
-export const getChat = (data) => {
-    return axiosInstanceWithToken.post(`/map/chat`, data
+export const getAnswer = (data) => {
+    return axiosInstanceWithToken.post(`/ai/answer`, data
     );
 }
 
 export const findUs = (data) => {
     return axiosInstanceWithoutToken.post(`/mail/send`, data
+    );
+}
+
+export const goRegister = (data) => {
+    return axiosInstanceWithoutToken.post(`/user/register`, data
+    );
+}
+
+export const goLogin = (data) => {
+    return axiosInstanceWithoutToken.post(`/user/login`, data
     );
 }
 

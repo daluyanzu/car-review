@@ -1,6 +1,6 @@
 <template>
     <div style="position: relative;height: 350px;">
-        <v-card width="100%">
+        <v-card width="100%" style="margin-bottom: 8px;">
             <v-tabs v-model="tabs" color="primary" grow>
                 <v-tab v-for="(item, key) in buttonManager" :key="key" :value="item.title">
                     <span>{{ item.title }}</span>
@@ -27,7 +27,22 @@
             </v-tabs-window>
         </v-card>
         <v-main v-if="showResult">
-            <v-container fluid>
+            <v-card class="mx-auto" max-width="600">
+                <v-list lines="two">
+                    <v-list-item  v-for="item in placeInfo" :key="item.displayName.text" :subtitle="item.displayName.text"
+                        :title="item.displayName.text" elevation="4" class="mb-4">
+                        <template v-slot:prepend>
+                            <v-img  class="search-img" v-if="item.image" :src="'data:image/png;base64,' + item.image" cover></v-img>
+                            <v-img  class="search-img"  v-if="!item.image" src="../assets/map.png" cover></v-img>
+                        </template>
+
+                        <template v-slot:append>
+                            <v-img height="26px" width="26px" @click="goGoogleMap(item)"  src="../assets/location.svg" cover></v-img>
+                        </template> 
+                    </v-list-item>
+                </v-list>
+            </v-card>
+            <!-- <v-container fluid>
                 <v-card v-for="(item, key) in placeInfo" :key="key" class="mb-2" density="compact"
                     :subtitle="'distance' + item.distance" :title="item.displayName.text" variant="text" border>
 
@@ -43,7 +58,7 @@
                     </template>
                 </v-card>
 
-            </v-container>
+            </v-container> -->
         </v-main>
         <div ref="map" v-if="showPlan" style=" height: 50vw;width: 100%;"></div>
         <!-- <GoogleMap></GoogleMap> -->
@@ -109,17 +124,19 @@
                 <v-btn variant="default" @click="closeDialog">ok</v-btn>
             </v-card-actions>
         </v-card>
-
-
-
     </div>
 
+    <LoginDialog :modelValue="dialog"  @onUpdate = "dialog = false"/>
+    <AiDialog :aiDialog="aiDialog" @onUpdate = "aiDialog = false"/>
 </template>
 <script setup>
-import { Loader } from '@googlemaps/js-api-loader';
+
 import { ref, nextTick, computed } from 'vue';
 import { useStore } from "vuex";
-import { getPlace, getWeather, getPlan, getChat } from '../api/mapApi.js';
+import { getPlace, getWeather, getPlan } from '../api/mapApi.js';
+import { getToken } from '@/utils/auth.js';
+import LoginDialog from './LoginDialog.vue';
+import AiDialog from './AiDialog.vue';
 const store = useStore()
 
 const location = [
@@ -244,7 +261,8 @@ const getLocation = () => {
         }
     });
 };
-
+const dialog = ref(false)
+const aiDialog = ref(false)
 const buttonEmit = async (button, parent) => {
     if (parent == 'location') {
         beginSearch(true)
@@ -292,17 +310,15 @@ const buttonEmit = async (button, parent) => {
                 updatePlan(res.data)
             }
         } else if (button == 'chat') {
-            res = await getChat({
-                size: '300x600',
-                lat: location.latitude,
-                lng: location.longitude
-            });
+            const token = getToken();
             beginSearch(false)
-            console.log(res)
-            if (res.msg && res.msg == 'success') {
-                updatePlan(res.data)
+            if (!token) {
+                dialog.value = true
+            } else {
+                aiDialog.value = true
             }
-        } 
+          
+        }
     }
 
 
@@ -389,6 +405,13 @@ const updatePlan = async (data) => {
     top: 40%;
     transform: translate(-50%, -50%);
     width: 80vw;
+}
+
+.search-img {
+    width: 20vw;
+    height: 16vw;
+    margin-right: 16px;
+    border-radius: 4px;
 }
 
 @keyframes rotate {
