@@ -3,6 +3,7 @@
     <div style="height: 40px;width: 40px;"  @click="clickFun">
         <img style="height: 100%;width: 100%;" :src="props.buttonKey.icon" alt="">
     </div>
+    <!-- <span>{{ props.buttonKey.title }}</span> -->
   </div>
 </template>
 <script setup>

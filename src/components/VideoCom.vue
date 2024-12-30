@@ -1,62 +1,72 @@
 <template>
     <div class="video-container" @touchstart="handleTouchStart">
-        <iframe width="100%" height="300" src="https://www.youtube.com/embed/MLHhHktbtgY?si=be-hnCzGvjLpvOsh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-      <!-- <iframe
+      <iframe
+        ref="youtubePlayer"
+        width="100%"
+        height="300"
         :src="videoUrl"
+        title="YouTube video player"
         frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen
-        @load="handleLoad"
-        style="width: 100%;"
-      ></iframe> -->
-      <!-- <div class="video-duration">时长：{{ duration }}秒</div> -->
+      ></iframe>
     </div>
   </template>
   
   <script>
   export default {
     name: 'BilibiliVideo',
-    props: {
-      videoId: {
-        type: String,
-        required: true
-      }
-    },
+
     data() {
       return {
-        duration: 0
+        player: null
       };
     },
     computed: {
       videoUrl() {
-        return 'https://youtu.be/MLHhHktbtgY?si=Azpl0UKOGJqVUSRz'
-        // return `//player.bilibili.com/player.html?isOutside=true&aid=113683539693680&bvid=BV12dk1YnEa7&cid=27432979989&p=1`;
+        return `https://www.youtube.com/embed/MLHhHktbtgY?enablejsapi=1`;
       }
     },
     methods: {
-      handleLoad() {
-        console.log('视频加载完成');
-        this.getVideoDuration();
-      },
       handleTouchStart() {
         console.log('触摸播放视频');
       },
-      getVideoDuration() {
-        this.duration = 300;
+      onYouTubeIframeAPIReady() {
+        this.player = new YT.Player(this.$refs.youtubePlayer, {
+          events: {
+            onReady: this.onPlayerReady,
+            onStateChange: this.onPlayerStateChange
+          }
+        });
+      },
+      onPlayerReady(event) {
+        console.log('播放器已准备好');
+        // 可以在这里调用播放器的方法，例如自动播放
+        event.target.playVideo();
+      },
+      onPlayerStateChange(event) {
+        console.log('播放器状态改变:', event.data);
+      }
+    },
+    mounted() {
+      // 加载 YouTube IFrame Player API
+      if (!window.YT) {
+        const tag = document.createElement('script');
+        tag.src = 'https://www.youtube.com/iframe_api';
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+  
+        // 设置全局回调函数
+        window.onYouTubeIframeAPIReady = this.onYouTubeIframeAPIReady;
+      } else {
+        this.onYouTubeIframeAPIReady();
       }
     }
   };
   </script>
   
   <style scoped>
-  .video-duration {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    color: #fff;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 5px;
-    border-radius: 5px;
-  }
   .video-container {
     width: 100%;
   }

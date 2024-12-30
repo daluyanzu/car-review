@@ -13,11 +13,14 @@ axiosInstanceWithToken.interceptors.request.use(
     const token = localStorage.getItem('token');
     if (token) {
       config.headers.token = `${token}`;
-    } 
+    }
+    // 触发 loading 事件
+    window.dispatchEvent(new CustomEvent('loading', { detail: true }));
     return config;
   },
   error => {
-    // 对请求错误做些什么
+    // 关闭 loading
+    window.dispatchEvent(new CustomEvent('loading', { detail: false }));
     return Promise.reject(error);
   }
 );
@@ -25,11 +28,13 @@ axiosInstanceWithToken.interceptors.request.use(
 // 响应拦截器
 axiosInstanceWithToken.interceptors.response.use(
   response => {
-    // 对响应数据做点什么
+    // 关闭 loading
+    window.dispatchEvent(new CustomEvent('loading', { detail: false }));
     return response.data;
   },
   error => {
-    // 对响应错误做点什么
+    // 关闭 loading
+    window.dispatchEvent(new CustomEvent('loading', { detail: false }));
     if (error.response) {
       // 请求已发出，但服务器响应状态不在 2xx 范围
       console.error('Error Response Data:', error.response.data);
@@ -56,11 +61,13 @@ const axiosInstanceWithoutToken = axios.create({
 // 响应拦截器
 axiosInstanceWithoutToken.interceptors.response.use(
   response => {
-    // 对响应数据做点什么
+    // 关闭 loading
+    window.dispatchEvent(new CustomEvent('loading', { detail: false }));
     return response.data;
   },
   error => {
-    // 对响应错误做点什么
+    // 关闭 loading
+    window.dispatchEvent(new CustomEvent('loading', { detail: false }));
     if (error.response) {
       // 请求已发出，但服务器响应状态不在 2xx 范围
       console.error('Error Response Data:', error.response.data);
@@ -76,5 +83,16 @@ axiosInstanceWithoutToken.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+axiosInstanceWithoutToken.interceptors.request.use(
+    config => {
+    window.dispatchEvent(new CustomEvent('loading', { detail: true }));
+      return config;
+    },
+    error => {
+      // 关闭 loading
+      window.dispatchEvent(new CustomEvent('loading', { detail: false }));
+      return Promise.reject(error);
+    }
+  );
 
 export { axiosInstanceWithToken, axiosInstanceWithoutToken };

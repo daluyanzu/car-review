@@ -2,7 +2,7 @@
     <div class="pa-4 text-center" >
      
           <v-dialog activator="parent" max-width="500"  v-model="props.aiDialog">
-            <template v-slot:default="{ isActive }">
+            <template v-slot:default="{  }">
               <v-card rounded="lg">
                 <v-card-title class="d-flex justify-space-between align-center">
                   <div class="text-h5 text-medium-emphasis ps-2">
@@ -66,6 +66,13 @@
             </template>
           </v-dialog>
     </div>
+    <v-snackbar
+      v-model="errorMsgFlag"
+      timeout="1500"
+      color="red"
+    >
+    Please ask questions first
+    </v-snackbar>
   </template>
 
 <script setup>
@@ -75,7 +82,8 @@ import { getAnswer } from '../api/mapApi.js';
 const answer = ref('Waiting for your question');
 const question = ref('')
 const sendQuestion = async () => {
-  answer.value = '';
+    if(question.value) {
+        answer.value = '';
     const res = await getAnswer({
         question: question.value,
     });
@@ -86,9 +94,13 @@ const sendQuestion = async () => {
     } else {
         answer.value = res.msg;
     }
+    }else {
+        errorMsgFlag.value = true
+    }
+  
     
 }
-
+const errorMsgFlag = ref(false)
 const props = defineProps({
     aiDialog: Object,
 })

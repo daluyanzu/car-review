@@ -14,7 +14,14 @@
         @blur="v$.name.$touch"
         @input="v$.name.$touch"
       ></v-text-field>
-
+      <v-textarea
+        v-model="question"
+        color="deep-purple"
+        label="Content"
+        rows="8"
+        variant="filled"
+        auto-grow
+      ></v-textarea>
       <v-select
         v-model="state.select"
         :error-messages="v$.select.$errors.map(e => e.$message)"
@@ -44,6 +51,7 @@
         @blur="v$.email.$touch"
         @input="v$.email.$touch"
       ></v-text-field>
+     
       <div>Is this your first time buying an RV?</div>
       <!-- <v-checkbox
         v-model="state.checkbox"
@@ -94,6 +102,59 @@
 
     
     </v-snackbar>
+    <v-fade-transition hide-on-leave>
+      <v-card
+        v-if="dialog"
+        append-icon="$close"
+        class="mx-auto chat-container"
+        elevation="16"
+         width="90vw"
+         height="40vh"
+        title="Send a message"
+        theme="light"
+      >
+        <template v-slot:append>
+          <v-btn icon="$close" variant="text" @click="closeBack "></v-btn>
+        </template>
+
+        <v-divider></v-divider>
+
+        <div class="py-12 text-center">
+          <v-icon
+            class="mb-6"
+            color="success"
+            icon="mdi-check-circle-outline"
+            size="80"
+          ></v-icon>
+
+          <div class="text-h4 font-weight-bold">This message was sent</div>
+        </div>
+
+        <v-divider></v-divider>
+
+        <div class="pa-4 text-end">
+          <v-btn
+            class="text-none"
+            color="medium-emphasis"
+            min-width="92"
+            variant="outlined"
+            rounded
+            @click="closeBack"
+          >
+            Close
+          </v-btn>
+        </div>
+      </v-card>
+    </v-fade-transition>
+    <v-overlay v-model="isLoading"></v-overlay>
+    <v-progress-circular
+    v-if="isLoading"
+        color="primary"
+        indeterminate
+        :width="10"
+        size="50"
+        class="mx-auto container-loading"
+      ></v-progress-circular>
 </template>
 
 <script setup>
@@ -115,6 +176,8 @@ const initialState = {
   select: null,
   radios: null,
 };
+
+const question = ref('')
 
 const state = reactive({
   ...initialState,
@@ -141,22 +204,24 @@ const submit = async () => {
     errorMsg.value = 'Form is invalid'
     return;
   }
-
+  isLoading.value = true
   const data = {
     name: state.name,
     contactType: state.select,
     contactNumber: state.select === 'Phone' ? state.phone : state.email,
     firstPurchase: state.radios === 'Yes' ? 'Y' : 'N',
-    content: state.select === 'Phone' ? state.phone : state.email,
+    content: question.value,
   };
 
   const response = await findUs(data);
   if(response.code == 200) {
     snackbar.value = true;
-    router.push({
-          path: '/'
-      })
+    isLoading.value = false
+    dialog.value = true
+    
   } else {
+    errorMsgFlag.value = true
+    isLoading.value = false
     errorMsg.value = response.msg
   }
   
@@ -170,6 +235,10 @@ const back = () => {
           path: '/'
       })
 }
+const closeBack = () => {
+    dialog.value = false
+    back()
+}
 function clear() {
   v$.value.$reset();
 
@@ -177,6 +246,10 @@ function clear() {
     state[key] = value;
   }
 }
+
+    const isLoading = ref(false)
+
+    const dialog = ref(false)
 </script>
 
 <style scoped>
@@ -200,5 +273,19 @@ function clear() {
   align-items: center;
   height: 50px;
 }
-
+.chat-container {
+    position: fixed;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+.container-loading {
+    width: 100px;
+    height: 100px;
+    z-index: 99;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 </style>
