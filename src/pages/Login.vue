@@ -59,28 +59,32 @@ const register = () => {
   router.push({
     path: '/register',
   })
-
-
 }
+
 const reset = () => {
-
   instance.ctx.$refs.form.reset()
+}
 
+const goBack = () => {
+  router.push({
+    path: '/',
+  })
 }
 
 </script>
 
 <template>
-  <v-container class="h-100  d-flex align-center justify-center">
+   <v-app-bar app>
+      <v-btn @click="goBack">Back to Home</v-btn>
+    </v-app-bar>
+  <v-container class="h-100 d-flex align-center justify-center" style="margin-top: -50px;">
+   
 
     <v-card width="500">
-
       <!-- <v-card-title >Login</v-card-title> -->
 
       <v-card-text class="pa-8">
-
         <v-form ref="form">
-
           <v-text-field variant="underlined" v-model="username" required :counter="20" label="Username"
             prepend-icon="mdi-account"></v-text-field>
 
@@ -88,21 +92,14 @@ const reset = () => {
             prepend-icon="mdi-lock" type="password"></v-text-field>
 
           <v-row class="mt-5">
-
             <v-btn class="ml-5" @click="handleLogin">login</v-btn>
 
             <v-btn class="ml-5" @click="register">Go register</v-btn>
-
           </v-row>
-
         </v-form>
-
       </v-card-text>
-
     </v-card>
-
   </v-container>
-
 </template>
 
 <style scoped></style>

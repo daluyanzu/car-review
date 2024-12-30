@@ -56,10 +56,19 @@ const reset = () => {
 
 }
 
+const goBack = () => {
+  router.push({
+    path: '/',
+  })
+}
+
 </script>
 
 <template>
-    <v-container class="h-100  d-flex align-center justify-center">
+    <v-app-bar app>
+      <v-btn @click="goBack">Back to Home</v-btn>
+    </v-app-bar>
+    <v-container class="h-100  d-flex align-center justify-center" style="margin-top: -50px;">
 
         <v-card width="500">
 

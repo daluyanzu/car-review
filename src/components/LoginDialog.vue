@@ -1,5 +1,5 @@
 <template>
-    <div class="pa-4 text-center">
+    <div class="pa-4 text-center" style="zIndex:999;">
         <v-dialog v-model="props.modelValue" width="auto" scrollable>
             <template v-slot:default="{ isActive }">
                 <v-card prepend-icon="mdi-account">
@@ -45,3 +45,12 @@ const GoLogin = () => {
 }
 
 </script>
+
+<style scoped>
+/* .text-center {
+    position: fixed;
+    left: 50%;
+    bottom: 10vh;
+    transform: translateX(-50%);
+} */
+</style>

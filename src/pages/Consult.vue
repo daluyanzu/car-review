@@ -1,7 +1,7 @@
 <template>
-    <div class="head-title">
-      Consult Us
-        </div>
+    <v-app-bar app>
+      <v-btn @click="goBack">Back to Home</v-btn>
+    </v-app-bar>
   <div class="container">
     <form class="container-from">
 
@@ -182,7 +182,11 @@ const question = ref('')
 const state = reactive({
   ...initialState,
 });
-
+const goBack = () => {
+  router.push({
+    path: '/',
+  })
+}
 const items = ['Phone', 'Email'];
 
 const rules = {

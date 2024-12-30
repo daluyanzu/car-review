@@ -50,6 +50,7 @@ async function load({ done }) {
     height: calc(100% - 100px);
     width: 100%;
     padding: 6px;
+    padding-top: 0;
 }
 
 .picture-container {

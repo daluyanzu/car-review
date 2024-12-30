@@ -2,17 +2,16 @@
     <div style="width: 100%;display: flex;justify-content: space-around;">
         <div class="app-header-container">
         <div class="head-picture">
-            <v-avatar @click="login">
-                <v-img alt="John" src="../assets/icon1.png"></v-img>
-            </v-avatar>
+          <v-img class="icon-img" alt="John" src="../assets/icon1.png"></v-img>
         </div>
         <div class="head-title">
             <!-- <img src="../assets/icon1.png" height="20" width="20" alt=""> -->
             Caravan Review
         </div>
         <div class="head-list" @click="login"  style="color: #7c2af1;">
-            <span v-if="!isLoggedIn">SIGN IN</span>
-            
+            <v-btn class="header-login" v-if="!isLoggedIn" theme="dark">
+  Log in
+</v-btn>
             <!-- <v-icon
             color="white"
             icon="mdi-email"
@@ -55,11 +54,9 @@ onMounted(() => {
 
 <style scoped>
 .app-header-container {
-    height: 50px;
-
+    height: 52px;
     width: 96%;
     display: flex;
-    margin-bottom: 4px;
     justify-content: center;
     align-items: center;
   
@@ -67,11 +64,15 @@ onMounted(() => {
 
 .head-picture {
     height: 100%;
-    width: 60px;
+    width: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
 
+}
+.icon-img {
+  height: 40px;
+  width: 40px;
 }
 /* @font-face {
   font-family: 'Pacifico-1';
@@ -94,5 +95,8 @@ onMounted(() => {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+.header-login {
+  height: 34px;
 }
 </style>
