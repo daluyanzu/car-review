@@ -16,12 +16,10 @@
   const isLoading = ref(false);
   
   const setLoading = (status) => {
-    console.log(111)
     isLoading.value = status;
   };
   
   onMounted(() => {
-    console.log(2222)
     window.addEventListener('loading', (event) => setLoading(event.detail));
   });
   

@@ -2,11 +2,12 @@
     <div style="width: 100%;display: flex;justify-content: space-around;">
         <div class="app-header-container">
         <div class="head-picture">
-          <v-img class="icon-img" alt="John" src="../assets/icon1.png"></v-img>
+          <v-img class="icon-img" src="../assets/icon1.png"></v-img>
         </div>
         <div class="head-title">
             <!-- <img src="../assets/icon1.png" height="20" width="20" alt=""> -->
-            Caravan Review
+            <div>Caravan Review</div> 
+            <div class="slogan">Discover the Best for Your Trip</div> 
         </div>
         <div class="head-list" @click="login"  style="color: #7c2af1;">
             <v-btn class="header-login" v-if="!isLoggedIn" theme="dark">
@@ -80,10 +81,14 @@ onMounted(() => {
   font-weight: normal;
   font-style: normal;
 } */
+ .slogan {
+  font-size: 12px;
+ }
 .head-title {
     width: calc(100% - 120px);
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     font-family: 'Pacifico-1' !important;

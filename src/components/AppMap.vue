@@ -30,7 +30,17 @@
             </v-tabs-window>
         </v-card>
         <v-main v-if="showResult">
-            <v-card class="mx-auto" max-width="600">
+            
+            <v-empty-state
+            v-if="searchNull"
+            height="300"
+            width="100%"
+    icon="mdi-magnify"
+    text="Try adjusting your search terms or filters. Sometimes less specific terms or broader queries can help you find what you're looking for."
+    title="We couldn't find a match."
+  ></v-empty-state>
+           
+            <v-card class="mx-auto"  max-width="600" v-if="!searchNull">
                 <v-list lines="two">
                     <v-list-item  v-for="item in placeInfo" :key="item.displayName.text" :subtitle="'Dist:' + item.distance + 'KM'"
                         :title="item.displayName.text" elevation="4" class="mb-4">
@@ -269,6 +279,7 @@ const getLocation = () => {
 const dialog = ref(false)
 const aiDialog = ref(false)
 const buttonEmit = async (button, parent) => {
+    searchNull.value = false;
     if (parent == 'location') {
         beginSearch(true)
         if (!store.state.location) {
@@ -348,10 +359,16 @@ const beginSearch = (value) => {
 
 }
 const showResult = ref(false)
+const searchNull = ref(false)
 const updateMap = (value) => {
     isSearch.value = false
     showResult.value = true
-    placeInfo.value = value.places
+    if (value.places && value.places.length > 0) {
+        placeInfo.value = value.places
+    } else {
+        searchNull.value = true;
+    }
+    
 }
 
 
