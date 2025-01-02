@@ -73,7 +73,7 @@
 
             </v-container> -->
         </v-main>
-        <div ref="map" v-if="showPlan" style=" height: 50vw;width: 100%;"></div>
+        <div ref="map" class="map-container" v-if="showPlan"></div>
         <!-- <GoogleMap></GoogleMap> -->
         <!-- <v-dialog v-model="isDialogVisible" max-width="500">
             <template v-slot:default>
@@ -294,6 +294,8 @@ const buttonEmit = async (button, parent) => {
         beginSearch(false)
         if (res.msg && res.msg == 'success') {
             updateMap(res.data)
+        } else {
+            searchNull.value = true;
         }
 
     } else if (parent == 'aiFuntions') {
@@ -420,14 +422,13 @@ const updatePlan = async (data) => {
 }
 
 .map-loading-container .loading-icon {
-    height: 20vw;
-    width: 20vw;
+    height: 90px;
+    width: 90px;
     position: absolute;
-    /* transform: translate(-50%, -50%); */
-    /* top: 50%;
-    left: 50%; */
-    top: calc(10vw + 16px);
-    left: calc(40vw - 6px)
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+
 }
 
 .rotating-element {
@@ -443,8 +444,8 @@ const updatePlan = async (data) => {
 }
 
 .search-img {
-    width: 20vw;
-    height: 16vw;
+    width: 80px;
+    height: 60px;
     margin-right: 16px;
     border-radius: 4px;
 }
@@ -452,6 +453,11 @@ const updatePlan = async (data) => {
     font-family: Roboto;
     font-weight: 500;
     font-size: 14px;
+}
+
+.map-container {
+  width: 100%;
+  aspect-ratio: 2 / 1; /* 高度是宽度的一半 */
 }
 
 @keyframes rotate {

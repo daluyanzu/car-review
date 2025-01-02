@@ -25,7 +25,7 @@
     },
     computed: {
       videoUrl() {
-        return `https://www.youtube.com/embed/MLHhHktbtgY?enablejsapi=1`;
+        return `https://www.youtube.com/embed/5uGAH_JDtSk?enablejsapi=1`;
       }
     },
     methods: {

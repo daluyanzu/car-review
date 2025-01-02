@@ -1,5 +1,5 @@
 <template>
-    <div class="app-container">
+    <div  :class="{'pc-container': isPc, 'app-container': !isPc}">
         <AppHeader />
         <app-container></app-container>
         <app-footer></app-footer>
@@ -12,7 +12,16 @@
 
 <script setup>
 import AppHeader from '@/components/AppHeader.vue';
+import { ref, onMounted } from 'vue';
+const isPc = ref(false);
+const checkIsPc = () => {
+  const userAgent = navigator.userAgent;
+  isPc.value = !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+};
 
+onMounted(() => {
+  checkIsPc();
+});
   //
 </script>
 
@@ -21,6 +30,13 @@ import AppHeader from '@/components/AppHeader.vue';
     height: 100vh;
     width: 100vw;
 }
+.pc-container {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: #f0f0f0;
+  position: relative;
+}
+
 @font-face {
   font-family: 'Pacifico-1';
   src: url('@/assets/fonts/Pacifico-1.ttf') format('truetype');

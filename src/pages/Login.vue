@@ -100,6 +100,7 @@ const goBack = () => {
       </v-card-text>
     </v-card>
   </v-container>
+  <LoadingCom />
 </template>
 
 <style scoped></style>

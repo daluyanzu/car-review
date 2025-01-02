@@ -215,8 +215,8 @@ const router = useRouter()
 }
 
 .find-us-container {
-    position: fixed;
-    bottom: 20vh;
+    position: absolute;
+    bottom: 100px;
     right:20px;
     display: flex;
     justify-content: center;

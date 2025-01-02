@@ -36,3 +36,20 @@ export const goLogin = (data) => {
     );
 }
 
+export const checkDuplicate = (data) => {
+    return axiosInstanceWithoutToken.post(`/user/checkDuplicate`, data
+    );
+}
+
+export const sendCode = (data) => {
+    return axiosInstanceWithoutToken.post(`/sms/sendCode`, data
+    );
+}
+
+export const getCaptcha = (data) => {
+    return axiosInstanceWithoutToken.post(`/captcha`, data
+    );
+}
+
+
+

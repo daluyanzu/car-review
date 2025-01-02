@@ -3,7 +3,7 @@
         <v-dialog v-model="props.modelValue" width="auto" scrollable>
             <template v-slot:default="{ isActive }">
                 <v-card prepend-icon="mdi-account">
-                    <v-card-text class="px-4" style="width: 80vw;">
+                    <v-card-text class="px-4" >
                         Member Only!
                     </v-card-text>
 

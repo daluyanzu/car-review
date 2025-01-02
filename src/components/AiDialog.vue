@@ -84,16 +84,15 @@ const question = ref('')
 const sendQuestion = async () => {
     if(question.value) {
         answer.value = '';
-    const res = await getAnswer({
-        question: question.value,
-    });
+        const res = await getAnswer({
+            question: question.value,
+        });
 
-    if (res.code == 200) {
-      answer.value = res.data.answer;
-        answer.value = 'Sorry, I am unable to answer your question';
-    } else {
-        answer.value = res.msg;
-    }
+        if (res.code == 200) {
+            answer.value = res.data.answer;
+        } else {
+            answer.value = res.msg;
+        }
     }else {
         errorMsgFlag.value = true
     }
