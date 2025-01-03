@@ -3,7 +3,7 @@
 // 创建需要 token 的 Axios 实例
 const axiosInstanceWithToken = axios.create({
   baseURL: '/api', // 替换为你的 API 基础 URL
-  timeout: 10000, // 请求超时时间
+  timeout: 30000, // 请求超时时间
   headers: { 'Content-Type': 'application/json' }
 });
 
@@ -54,7 +54,7 @@ axiosInstanceWithToken.interceptors.response.use(
 // 创建不需要 token 的 Axios 实例
 const axiosInstanceWithoutToken = axios.create({
   baseURL: '/api', // 替换为你的 API 基础 URL
-  timeout: 10000, // 请求超时时间
+  timeout: 30000, // 请求超时时间
   headers: { 'Content-Type': 'application/json' }
 });
 

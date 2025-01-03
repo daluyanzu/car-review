@@ -11,9 +11,15 @@
             </v-tabs>
             <v-tabs-window v-model="tabs">
                 <v-tabs-window-item v-for="(item, key) in buttonManager" :key="key" :value="item.title">
-                    <div class="button-container">
-                        <FunButton @buttonEmit="buttonEmit" v-for="(button, buttonKey) in item.list"
-                            :parentKey="item.key" :key="buttonKey" :buttonKey="button" />
+                    <div class="button-container" >
+                        <!-- <div v-for="(button, buttonKey) in item.list">
+                            {{ button.title }}
+                        </div> -->
+                        <div  v-for="(button, buttonKey) in item.list" :class="{ 'selected-btn': selectedBtn == button.value }">
+                            <FunButton @buttonEmit="buttonEmit" 
+                            :parentKey="item.key" :key="buttonKey" :buttonKey="button"   />
+                        </div>
+                       
                     </div>
                     <!-- <v-card> -->
                     <!-- <v-card-text> -->
@@ -278,8 +284,11 @@ const getLocation = () => {
 };
 const dialog = ref(false)
 const aiDialog = ref(false)
+const selectedBtn = ref('')
 const buttonEmit = async (button, parent) => {
     searchNull.value = false;
+    selectedBtn.value = button;
+    console.log(button,'-------')
     if (parent == 'location') {
         beginSearch(true)
         if (!store.state.location) {
@@ -425,9 +434,8 @@ const updatePlan = async (data) => {
     height: 90px;
     width: 90px;
     position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
+    top: calc(50% - 45px);
+    left: calc(50% - 45px);
 
 }
 
@@ -460,6 +468,10 @@ const updatePlan = async (data) => {
   aspect-ratio: 2 / 1; /* 高度是宽度的一半 */
 }
 
+.selected-btn {
+    background: #cccccc;
+
+}
 @keyframes rotate {
     from {
         transform: rotate(0deg);

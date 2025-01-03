@@ -19,10 +19,14 @@
     font-family: Roboto;
 font-weight: 500;
 font-size: 18px;
+background: #f5f5f5;
+color: #333333;
+border-radius: 4px;
 }
 .small {
     font-family: Roboto;
 font-weight: 500;
 font-size: 10px;height: 30px;
+color: #5c5c5c;
 }
 </style>

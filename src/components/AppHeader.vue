@@ -9,8 +9,8 @@
             <div>Caravan Review</div> 
             <div class="slogan">Discover the Best for Your Trip</div> 
         </div>
-        <div class="head-list" @click="login"  style="color: #7c2af1;">
-            <v-btn class="header-login" v-if="!isLoggedIn" theme="dark">
+        <div class="head-list" @click="login" >
+            <v-btn class="header-login" v-if="!isLoggedIn" color="#3F51B5">
   Log in
 </v-btn>
             <!-- <v-icon
@@ -60,6 +60,7 @@ onMounted(() => {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #fffefb;
   
 }
 
@@ -83,6 +84,7 @@ onMounted(() => {
 } */
  .slogan {
   font-size: 12px;
+  color: #5c5c5c;
  }
 .head-title {
     width: calc(100% - 120px);
@@ -92,6 +94,7 @@ onMounted(() => {
     justify-content: center;
     align-items: center;
     font-family: 'Pacifico-1' !important;
+    color: #333333;
 }
 
 .head-list {
