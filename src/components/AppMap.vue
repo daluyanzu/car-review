@@ -425,9 +425,9 @@ const updatePlan = async (data) => {
     height: 90px;
     width: 90px;
     position: absolute;
-    transform: translate(-50%, -50%);
-    top: 50%;
-    left: 50%;
+    /* transform: translate(-50%, -50%); */
+    top: calc(50% - 45px);
+    left: calc(50% - 45px);
 
 }
 
