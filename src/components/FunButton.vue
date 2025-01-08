@@ -4,7 +4,7 @@
         <img style="height: 100%;width: 100%;" :src="props.buttonKey.icon" alt="">
         
     </div>
-    <span style="height:10px;fontSize:12px">{{ props.buttonKey.title }}</span>
+    <div style="fontSize:12px">{{ props.buttonKey.title }}</div>
   </div>
 </template>
 <script setup>

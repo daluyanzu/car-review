@@ -51,5 +51,10 @@ export const getCaptcha = (data) => {
     );
 }
 
+export const searchCar = (data) => {
+    return axiosInstanceWithoutToken.post(`/rv/search`, data
+    );
+}
+
 
 
