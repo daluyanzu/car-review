@@ -1,8 +1,8 @@
 <template>
     <GoaIntroduce />
-    
+
     <div style="position: relative;height: 350px;">
-       
+
         <v-card width="100%" style="margin-bottom: 12px;">
             <v-tabs v-model="tabs" color="primary" grow>
                 <v-tab v-for="(item, key) in buttonManager" :key="key" :value="item.title">
@@ -11,21 +11,15 @@
             </v-tabs>
             <v-tabs-window v-model="tabs">
                 <v-tabs-window-item v-for="(item, key) in buttonManager" :key="key" :value="item.title">
-                    <div class="button-container" >
-                        <!-- <div v-for="(button, buttonKey) in item.list">
-                            {{ button.title }}
-                        </div> -->
-                        <div  v-for="(button, buttonKey) in item.list" :class="{ 'selected-btn': selectedBtn == button.value }">
-                            <FunButton @buttonEmit="buttonEmit" 
-                            :parentKey="item.key" :key="buttonKey" :buttonKey="button"   />
+                    <CarSearch />
+                    <!-- <div class="button-container">
+                        <div v-for="(button, buttonKey) in item.list"
+                            :class="{ 'selected-btn': selectedBtn == button.value }">
+                            <FunButton @buttonEmit="buttonEmit" :parentKey="item.key" :key="buttonKey"
+                                :buttonKey="button" />
                         </div>
-                       
-                    </div>
-                    <!-- <v-card> -->
-                    <!-- <v-card-text> -->
 
-                    <!-- </v-card-text> -->
-                    <!-- </v-card> -->
+                    </div> -->
                 </v-tabs-window-item>
                 <div v-if="isSearch" class="map-loading-container">
                     <img src="../assets/map.png" alt="">
@@ -36,73 +30,33 @@
             </v-tabs-window>
         </v-card>
         <v-main v-if="showResult">
-            
-            <v-empty-state
-            v-if="searchNull"
-            height="300"
-            width="100%"
-    icon="mdi-magnify"
-    text="Try adjusting your search terms or filters. Sometimes less specific terms or broader queries can help you find what you're looking for."
-    title="We couldn't find a match."
-  ></v-empty-state>
-           
-            <v-card class="mx-auto"  max-width="600" v-if="!searchNull">
+
+            <v-empty-state v-if="searchNull" height="300" width="100%" icon="mdi-magnify"
+                text="Try adjusting your search terms or filters. Sometimes less specific terms or broader queries can help you find what you're looking for."
+                title="We couldn't find a match."></v-empty-state>
+
+            <v-card class="mx-auto" max-width="600" v-if="!searchNull">
                 <v-list lines="two">
-                    <v-list-item  v-for="item in placeInfo" :key="item.displayName.text" :subtitle="'Dist:' + item.distance + 'KM'"
-                        :title="item.displayName.text" elevation="4" class="mb-4">
+                    <v-list-item v-for="item in placeInfo" :key="item.displayName.text"
+                        :subtitle="'Dist:' + item.distance + 'KM'" :title="item.displayName.text" elevation="4"
+                        class="mb-4">
                         <template v-slot:prepend>
-                            <v-img  class="search-img" v-if="item.image" :src="'data:image/png;base64,' + item.image" cover></v-img>
-                            <v-img  class="search-img"  v-if="!item.image" src="../assets/map.png" cover></v-img>
+                            <v-img class="search-img" v-if="item.image" :src="'data:image/png;base64,' + item.image"
+                                cover></v-img>
+                            <v-img class="search-img" v-if="!item.image" src="../assets/map.png" cover></v-img>
                         </template>
 
                         <template v-slot:append>
-                            <v-img height="26px" width="26px" @click="goGoogleMap(item)"  src="../assets/location.svg" cover></v-img>
-                        </template> 
+                            <v-img height="26px" width="26px" @click="goGoogleMap(item)" src="../assets/location.svg"
+                                cover></v-img>
+                        </template>
                     </v-list-item>
                 </v-list>
             </v-card>
-            <!-- <v-container fluid>
-                <v-card v-for="(item, key) in placeInfo" :key="key" class="mb-2" density="compact"
-                    :subtitle="'distance' + item.distance" :title="item.displayName.text" variant="text" border>
-
-                    <v-img height="128" v-if="item.image" :src="'data:image/png;base64,' + item.image" cover></v-img>
-                    <v-img height="128" v-if="!item.image" src="../assets/map.png" cover></v-img>
-
-                    <v-card-text>
-                        {{ item.formattedAddress }}
-                    </v-card-text>
-
-                    <template v-slot:actions>
-                        <v-btn color="primary" variant="text" @click="goGoogleMap(item)">谷歌定位</v-btn>
-                    </template>
-                </v-card>
-
-            </v-container> -->
         </v-main>
         <div ref="map" class="map-container" v-if="showPlan"></div>
-        <!-- <GoogleMap></GoogleMap> -->
-        <!-- <v-dialog v-model="isDialogVisible" max-width="500">
-            <template v-slot:default>
-                <v-card :title="weather.weather + '-' + weather.name">
-                    <v-card-text>
-                        temp:{{ weather.temp }}k<br>
-                        humidity:{{ weather.humidity }}%<br>
-                        speed:{{ weather.speed }}ms<br>
-                        deg:{{ weather.deg }}°
-                    </v-card-text>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn text="ok" @click="closeDialog"></v-btn>
-                    </v-card-actions>
-                </v-card>
-            </template>
-        </v-dialog> -->
         <v-card v-if="isDialogVisible" theme="light" class="mx-auto weather-container" max-width="368">
             <v-card-item :title="weather.weather + '-' + weather.name">
-                <!-- <template v-slot:subtitle>
-                    <v-icon class="me-1 pb-1" color="error" icon="mdi-alert" size="18"></v-icon>
-                    {{ weather.name }}
-                </template> -->
             </v-card-item>
 
             <v-card-text class="py-0">
@@ -145,8 +99,9 @@
         </v-card>
     </div>
 
-    <LoginDialog :modelValue="dialog"  @onUpdate = "dialog = false"/>
-    <AiDialog :aiDialog="aiDialog" @onUpdate = "aiDialog = false"/>
+    <LoginDialog :modelValue="dialog" @onUpdate="dialog = false" />
+    <AiDialog :aiDialog="aiDialog" @onUpdate="aiDialog = false" />
+
 </template>
 <script setup>
 
@@ -157,6 +112,7 @@ import { getToken } from '@/utils/auth.js';
 import LoginDialog from './LoginDialog.vue';
 import AiDialog from './AiDialog.vue';
 import html2canvas from 'html2canvas';
+import CarSearch from './CarSearch.vue';
 const store = useStore()
 
 const location = [
@@ -212,6 +168,10 @@ const aiFuntions = [
     },
 ]
 
+const plan = [
+
+]
+
 const buttonManager = [
     {
         title: 'explorer',
@@ -223,6 +183,11 @@ const buttonManager = [
         list: aiFuntions,
         key: 'aiFuntions'
     },
+    {
+        title: 'plan',
+        list: plan,
+        key: 'plan'
+    }
 
 ]
 const goGoogleMap = (place) => {
@@ -288,7 +253,7 @@ const selectedBtn = ref('')
 const buttonEmit = async (button, parent) => {
     searchNull.value = false;
     selectedBtn.value = button;
-    console.log(button,'-------')
+    console.log(button, '-------')
     if (parent == 'location') {
         beginSearch(true)
         if (!store.state.location) {
@@ -344,7 +309,7 @@ const buttonEmit = async (button, parent) => {
             } else {
                 aiDialog.value = true
             }
-          
+
         } else if (button == 'cut') {
             beginSearch(false)
             const element = document.body; // 你可以选择任何你想截图的元素
@@ -379,7 +344,7 @@ const updateMap = (value) => {
     } else {
         searchNull.value = true;
     }
-    
+
 }
 
 
@@ -457,6 +422,7 @@ const updatePlan = async (data) => {
     margin-right: 16px;
     border-radius: 4px;
 }
+
 .tab-font {
     font-family: Roboto;
     font-weight: 500;
@@ -464,14 +430,16 @@ const updatePlan = async (data) => {
 }
 
 .map-container {
-  width: 100%;
-  aspect-ratio: 2 / 1; /* 高度是宽度的一半 */
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    /* 高度是宽度的一半 */
 }
 
 .selected-btn {
     background: #cccccc;
 
 }
+
 @keyframes rotate {
     from {
         transform: rotate(0deg);
