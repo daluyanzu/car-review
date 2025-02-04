@@ -337,6 +337,7 @@ const buttonEmit = async (button, parent) => {
         let res = null;
         const location = store.state.location
         if (button == 'weather') {
+            
             res = await getWeather({
                 lat: location.latitude,
                 lng: location.longitude

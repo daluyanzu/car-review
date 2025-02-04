@@ -56,5 +56,11 @@ export const searchCar = (data) => {
     );
 }
 
+export const uploadAudio = (data) => {
+    return axiosInstanceWithToken.post(`/ai/audio`, data
+    );
+}
+
+
 
 

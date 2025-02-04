@@ -4,6 +4,7 @@ import Vue from '@vitejs/plugin-vue'
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import ViteFonts from 'unplugin-fonts/vite'
 import VueRouter from 'unplugin-vue-router/vite'
+import requireTransform from 'vite-plugin-require-transform';
 
 // Utilities
 import { defineConfig } from 'vite'
@@ -32,6 +33,9 @@ export default defineConfig({
         }],
       },
     }),
+    requireTransform({
+      fileRegex: /.js$|.vue$/
+    }),
   ],
   define: { 'process.env': {} },
   resolve: {
@@ -52,8 +56,10 @@ export default defineConfig({
     port: 3000,
     proxy: {
         '/api': {
-          target: 'https://www.caravanreview.com.au',
+          target: 'https://139.180.170.150:443',
           changeOrigin: true,
+          secure: false, // 如果使用的是自签名证书，可以设置为 false
+     
         }
       }
   },

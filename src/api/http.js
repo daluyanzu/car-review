@@ -2,9 +2,8 @@
 
 // 创建需要 token 的 Axios 实例
 const axiosInstanceWithToken = axios.create({
-  baseURL: '/api', // 替换为你的 API 基础 URL
+  baseURL: 'https://www.caravanreview.com.au/api', // 替换为你的 API 基础 URL
   timeout: 30000, // 请求超时时间
-  headers: { 'Content-Type': 'application/json' }
 });
 
 // 请求拦截器
@@ -53,9 +52,8 @@ axiosInstanceWithToken.interceptors.response.use(
 
 // 创建不需要 token 的 Axios 实例
 const axiosInstanceWithoutToken = axios.create({
-  baseURL: '/api', // 替换为你的 API 基础 URL
+  baseURL: 'https://www.caravanreview.com.au/api', // 替换为你的 API 基础 URL
   timeout: 30000, // 请求超时时间
-  headers: { 'Content-Type': 'application/json' }
 });
 
 // 响应拦截器
