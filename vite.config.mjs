@@ -5,7 +5,7 @@ import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import ViteFonts from 'unplugin-fonts/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 import requireTransform from 'vite-plugin-require-transform';
-
+import commonjs from '@rollup/plugin-commonjs';
 // Utilities
 import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
@@ -13,10 +13,12 @@ import { fileURLToPath, URL } from 'node:url'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    commonjs(),
     VueRouter(),
     Vue({
       template: { transformAssetUrls }
     }),
+    
     // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     Vuetify({
       autoImport: true,
@@ -33,11 +35,23 @@ export default defineConfig({
         }],
       },
     }),
+    
     requireTransform({
       fileRegex: /.js$|.vue$/
     }),
+   
   ],
   define: { 'process.env': {} },
+  build: {
+    rollupOptions: {
+      plugins: [
+        commonjs({
+          include: /node_modules/,
+          requireReturnsDefault: 'auto', // 处理默认导出问题
+        }),
+      ],
+    },
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
@@ -54,6 +68,7 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    host: true,
     proxy: {
         '/api': {
           target: 'https://139.180.170.150:443',

@@ -29,14 +29,14 @@
 
             </v-tabs-window>
         </v-card>
-        <v-main v-if="showResult">
+        <v-main v-if="showResult" style="height: 100%;">
             <v-empty-state v-if="searchNull" height="300" width="100%" icon="mdi-magnify"
                 text="Try adjusting your search terms or filters. Sometimes less specific terms or broader queries can help you find what you're looking for."
                 title="We couldn't find a match."></v-empty-state>
-            <div v-if="carSearch">
-                <v-card class="mx-auto" max-width="600" v-if="!searchNull">
-                    <v-list lines="two">
-                        <v-card class="mx-auto" v-for="(item,index) in carInfo" :key="index" style="margin-bottom: 16px;" max-width="400">
+            <div v-if="carSearch" style="height: 100%;">
+                <v-card class="mx-auto" style="height: 100%;" v-if="!searchNull">
+                    <v-list lines="two" style="height: 100%;">
+                        <v-card class="mx-auto" v-for="(item,index) in carInfo" :key="index" style="margin-bottom: 16px;">
                             <v-card-subtitle class="pt-4">
                                 
                                 <div>{{ item.brand}}</div>
@@ -70,11 +70,11 @@
                     </v-list>
                 </v-card>
             </div>
-            <div v-if="!carSearch">
+            <div v-if="!carSearch" style="height: 100%;">
 
 
-                <v-card class="mx-auto" max-width="600" v-if="!searchNull">
-                    <v-list lines="two">
+                <v-card class="mx-auto" style="height: 100%;" v-if="!searchNull">
+                    <v-list lines="two" style="height: 100%;">
                         <v-list-item v-for="item in placeInfo" :key="item.displayName.text"
                             :subtitle="'Dist:' + item.distance + 'KM'" :title="item.displayName.text" elevation="4"
                             class="mb-4">
@@ -215,6 +215,11 @@ const plan = [
 ]
 
 const buttonManager = [
+{
+        title: 'plan',
+        list: plan,
+        key: 'plan'
+    },
     {
         title: 'explorer',
         list: location,
@@ -225,11 +230,7 @@ const buttonManager = [
         list: aiFuntions,
         key: 'aiFuntions'
     },
-    {
-        title: 'plan',
-        list: plan,
-        key: 'plan'
-    }
+    
 
 ]
 const goGoogleMap = (place) => {

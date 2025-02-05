@@ -51,6 +51,7 @@ async function load({ done }) {
     width: 100%;
     padding: 6px;
     padding-top: 0;
+    margin-bottom: 50px;
 }
 
 .picture-container {

@@ -14,7 +14,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40px;
+    height: 30px;
     font-size: 20px;
     font-family: Roboto;
 font-weight: 500;

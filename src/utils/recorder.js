@@ -1,4 +1,8 @@
+const Recorder = require("js-audio-recorder");
 
+export const getRecorder = () => {
+    return Recorder;
+}
 
 export const convertToMp3 = (wavDataView, recorder) => {
     // 获取wav头信息

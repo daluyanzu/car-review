@@ -27,7 +27,7 @@ onMounted(() => {
 
 <style scoped>
 .app-container {
-    height: 100vh;
+    height: 100%;
     width: 100vw;
 }
 .pc-container {
@@ -35,6 +35,7 @@ onMounted(() => {
   margin: 0 auto;
   background-color: #f0f0f0;
   position: relative;
+  height: 100%;
 }
 
 @font-face {

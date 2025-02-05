@@ -1,75 +1,8 @@
 <template>
-  <div style="display: flex;">
-    <div class="audioBox">
-    <div
-      class="boxItem"
-      :class="
-        recordStatus == 'begin' || recordStatus == 'resume' ? 'active' : ''
-      "
-      @click="startRecorder('begin')"
-    >
-      <div class="item_icon iconfonts iconrecord-circle-line"></div>
-      <div class="item_desc">开始录制</div>
-    </div>
-    <!-- <div
-      class="boxItem"
-      v-show="recordStatus !== 'pause'"
-      @click="pauseRecorder('pause')"
-    >
-      <div class="item_icon iconfonts iconzanting1"></div>
-      <div class="item_desc">暂停录制</div>
-    </div>
-    <div
-      class="boxItem"
-      v-show="recordStatus == 'pause'"
-      @click="resumeRecorder('resume')"
-    >
-      <div class="item_icon iconfonts iconicon_play"></div>
-      <div class="item_desc">继续录制</div>
-    </div> -->
-    <div class="boxItem" @click="stopRecorder('stop')">
-      <div class="item_icon iconfonts iconstop-full"></div>
-      <div class="item_desc">停止录制</div>
-    </div>
-    <!-- <div class="boxItem">
-      <div class="item_dura">{{ formatNum(rm) }}:{{ formatNum(rs) }}</div>
-      <div class="item_desc">录音时长</div>
-    </div> -->
-  </div>
-  <div class="audioBox playBox">
-    <div class="boxItem" @click="playRecorder('play')">
-      <div class="item_icon iconfonts iconicon_play"></div>
-      <div class="item_desc">录音播放</div>
-    </div>
-    <!-- <div class="boxItem" @click="resumePlayRecorder('resume_play')">
-      <div class="item_icon iconfonts iconicon_play"></div>
-      <div class="item_desc">恢复播放</div>
-    </div> -->
-    <!-- <div class="boxItem" @click="pausePlayRecorder('pause_play')">
-      <div class="item_icon iconfonts iconzanting1"></div>
-      <div class="item_desc">暂停播放</div>
-    </div>
-    <div class="boxItem">
-      <div class="item_dura">
-        {{ formatNum(ym) }}:{{ formatNum(ys) }}/{{ formatNum(rm) }}:{{
-          formatNum(rs)
-        }}
-      </div>
-      <div class="item_desc">播放时长/录音时长</div>
-    </div>
-    <div class="boxItem" @click="resetRecorder('reset')">
-      <div class="item_icon iconfonts iconzhongzhi"></div>
-      <div class="item_desc">重新录制</div>
-    </div> -->
-    <div class="boxItem" @click="getMp3Data">
-      <div class="item_icon iconfonts iconbaocun01"></div>
-      <div class="item_desc">保存</div>
-    </div>
-  </div>
-  </div>
+  
   
 </template>
-<script>
+<!-- <script>
 // lamejs  版本号为  1.2.0  最新版本会报错 属性找不到
 import Recorder from "js-audio-recorder";
 import { convertToMp3 } from '@/utils/recorder'
@@ -352,7 +285,7 @@ methods: {
   }
 }
 };
-</script>
+</script> -->
 <style lang="less" scoped>
 .audioBox {
 color:black;
