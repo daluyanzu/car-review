@@ -15,10 +15,10 @@ export default defineConfig({
   plugins: [
     commonjs(),
     VueRouter(),
+
     Vue({
       template: { transformAssetUrls }
     }),
-    
     // https://github.com/vuetifyjs/vuetify-loader/tree/master/packages/vite-plugin#readme
     Vuetify({
       autoImport: true,
@@ -37,7 +37,7 @@ export default defineConfig({
     }),
     
     requireTransform({
-      fileRegex: /.js$|.vue$/
+      fileRegex: /.js$|.vue$|.png$|.ts$|.jpg$/
     }),
    
   ],

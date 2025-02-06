@@ -6,7 +6,6 @@
 
 // Plugins
 import { registerPlugins } from '@/plugins'
-
 import 'mosha-vue-toastify/dist/style.css'
 import '@mdi/font/css/materialdesignicons.css'
 import './assets/style/global.css'; // 引入全局样式
