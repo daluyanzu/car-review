@@ -1,5 +1,5 @@
 ﻿import axios from 'axios';
-
+import router from "../router/index.js";
 // 创建需要 token 的 Axios 实例
 const axiosInstanceWithToken = axios.create({
   baseURL: 'https://www.caravanreview.com.au/api', // 替换为你的 API 基础 URL
@@ -29,6 +29,10 @@ axiosInstanceWithToken.interceptors.response.use(
   response => {
     // 关闭 loading
     window.dispatchEvent(new CustomEvent('loading', { detail: false }));
+    if (response.data.code === 501) {
+      localStorage.removeItem('token');
+      router.push('/login');
+    }
     return response.data;
   },
   error => {
@@ -39,6 +43,7 @@ axiosInstanceWithToken.interceptors.response.use(
       console.error('Error Response Data:', error.response.data);
       console.error('Error Response Status:', error.response.status);
       console.error('Error Response Headers:', error.response.headers);
+
     } else if (error.request) {
       // 请求已发出，但没有收到响应
       console.error('Error Request Data:', error.request);
@@ -71,6 +76,7 @@ axiosInstanceWithoutToken.interceptors.response.use(
       console.error('Error Response Data:', error.response.data);
       console.error('Error Response Status:', error.response.status);
       console.error('Error Response Headers:', error.response.headers);
+     
     } else if (error.request) {
       // 请求已发出，但没有收到响应
       console.error('Error Request Data:', error.request);
