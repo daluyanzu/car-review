@@ -68,7 +68,7 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    host: true,
+    host: '0.0.0.0',
     proxy: {
         '/api': {
           target: 'https://139.180.170.150:443',

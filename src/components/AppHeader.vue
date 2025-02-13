@@ -6,8 +6,8 @@
         </div>
         <div class="head-title">
             <!-- <img src="../assets/icon1.png" height="20" width="20" alt=""> -->
-            <div>Caravan Review</div> 
-            <div class="slogan">Discover the Best for Your Trip</div> 
+            <div style="color:#7b38f2">AI Caravan</div> 
+            <!-- <div class="slogan">Discover the Best for Your Trip</div>  -->
         </div>
         <div class="head-list" @click="login" >
             <v-btn class="header-login" v-if="!isLoggedIn" color="#3F51B5">
@@ -56,7 +56,7 @@ onMounted(() => {
 <style scoped>
 .app-header-container {
     height: 52px;
-    width: 96%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -65,16 +65,16 @@ onMounted(() => {
 }
 
 .head-picture {
-    height: 100%;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
 
 }
 .icon-img {
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
 }
 /* @font-face {
   font-family: 'Pacifico-1';

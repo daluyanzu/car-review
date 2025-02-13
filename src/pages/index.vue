@@ -1,9 +1,10 @@
 <template>
     <div  :class="{'pc-container': isPc, 'app-container': !isPc}">
         <AppHeader />
-        <app-container></app-container>
+        <ChatCom />
+        <!-- <app-container></app-container>
         <app-footer></app-footer>
-        <FindUs />
+        <FindUs /> -->
         <LoadingCom />
     </div>
   
@@ -12,6 +13,7 @@
 
 <script setup>
 import AppHeader from '@/components/AppHeader.vue';
+import ChatCom from '@/components/ChatCom.vue';
 import { ref, onMounted } from 'vue';
 const isPc = ref(false);
 const checkIsPc = () => {

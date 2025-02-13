@@ -12,7 +12,7 @@ import { uploadAudio } from '@/api/mapApi.js';
 export default {
   name: 'AppFooter',
   setup() {
-    const content = ref("点击录制声音");
+    const content = ref("Ask Celine");
     const isBegin = ref(false);
     const audioPlayer = ref(null);
     let recorder = null;
@@ -21,10 +21,10 @@ export default {
     const toggleRecording = async () => {
       if (!isBegin.value) {
         startRecording();
-        content.value = "录制中...";
+        content.value = "Recording..";
         isBegin.value = true;
       } else {
-        content.value = "结束录制,GOA思考中...";
+        content.value = "Loading...";
         stopRecording();
       }
     };
@@ -78,10 +78,9 @@ export default {
 
       try {
         const response = await uploadAudio(formData);
-        content.value = "点击录制声音";
+        content.value = "Ask Celine";
         isBegin.value = false;
         return response.data.audio
-        console.log('Upload success:', response.data.audio);
       } catch (error) {
         console.error('Error uploading file:', error);
       }
@@ -105,7 +104,7 @@ export default {
     position: fixed;
     left: 0;
     bottom: 0;
-    background-color: #3F51B5;
+    background-color: #8a151b;
     color: white;
     display: flex;
     flex-direction: column;
