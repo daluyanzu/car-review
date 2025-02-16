@@ -271,7 +271,7 @@ export default {
                 audioPlayer.value.src = current.value.audio;
                 audioPlayer.value.play();
                 message.value.push(obj)
-            } else if ( current.value.question== 'Stop opening door step.') {
+            } else if ( current.value.question== 'Stop closing door step.') {
                 const res = await setDeviceStatus({
                     channel:0,
                     status:'off'
