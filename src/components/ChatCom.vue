@@ -248,34 +248,34 @@ export default {
             }
            
 
-            if ( current.value.question== 'Open doorstep.') {
+            if ( current.value.question== 'Open door step.') {
                 const res = await setDeviceStatus({
                     channel:2,
-                    status:true
+                    status:'on'
                 })
                 audioPlayer.value.src = current.value.audio;
                 audioPlayer.value.play();
                 message.value.push(obj)
-            } else if ( current.value.question== 'Stop opening doorstep.') {
+            } else if ( current.value.question== 'Stop opening door step.') {
                 const res = await setDeviceStatus({
                     channel:2,
-                    status:false
+                    status:'off'
                 })
                 audioPlayer.value.src = current.value.audio;
                 audioPlayer.value.play();
                 message.value.push(obj)
-            } else if ( current.value.question== 'Closing doorstep.') {
+            } else if ( current.value.question== 'Closing door step.') {
                 const res = await setDeviceStatus({
                     channel:1,
-                    status:true
+                    status:'on'
                 })
                 audioPlayer.value.src = current.value.audio;
                 audioPlayer.value.play();
                 message.value.push(obj)
-            } else if ( current.value.question== 'Stop opening doorstep.') {
+            } else if ( current.value.question== 'Stop opening door step.') {
                 const res = await setDeviceStatus({
                     channel:1,
-                    status:false
+                    status:'off'
                 })
                 audioPlayer.value.src = current.value.audio;
                 audioPlayer.value.play();
@@ -283,7 +283,7 @@ export default {
             } else if ( current.value.question== 'Open awnings.') {
                 const res = await setDeviceStatus({
                     channel:4,
-                    status:true
+                    status:'on'
                 })
                 audioPlayer.value.src = current.value.audio;
                 audioPlayer.value.play();
@@ -291,7 +291,7 @@ export default {
             } else if ( current.value.question== 'Stop opening awnings.') {
                 const res = await setDeviceStatus({
                     channel:4,
-                    status:false
+                    status:'off'
                 })
                 audioPlayer.value.src = current.value.audio;
                 audioPlayer.value.play();
@@ -299,7 +299,7 @@ export default {
             } else if ( current.value.question== 'Closing awnings.') {
                 const res = await setDeviceStatus({
                     channel:3,
-                    status:true
+                    status:'on'
                 })
                 audioPlayer.value.src = current.value.audio;
                 audioPlayer.value.play();
@@ -307,7 +307,7 @@ export default {
             } else if ( current.value.question== 'Stop closing awnings.') {
                 const res = await setDeviceStatus({
                     channel:3,
-                    status:false
+                    status:'off'
                 })
                 audioPlayer.value.src = current.value.audio;
                 audioPlayer.value.play();
