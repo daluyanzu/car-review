@@ -1,19 +1,44 @@
 ﻿<template>
-    <div class="answer">
-        <!-- <v-virtual-scroll
-  height="100%"
-  :items="answerItems"
->
-  <template v-slot:default="{ item }">
-    
-  </template>
-</v-virtual-scroll> -->
-        <!-- <v-card style="margin-bottom: 6px;" :text="current"></v-card> -->
-        <div id="chat-container">
-            <div id="chat-messages" ref="chatMessages">
-            </div>
-        </div>
+    <div class="text-center pa-4">
+        <v-dialog v-model="dialog" max-width="360" persistent>
 
+
+            <v-card text="Allow AI to execute this command?" title="Confirm Action">
+                <template v-slot:actions>
+                    <v-spacer></v-spacer>
+                    <v-btn @click="Agree" color="#813df4">
+                        Agree
+                    </v-btn>
+                    <v-btn @click="Disagree">
+                        Disagree
+                    </v-btn>
+
+                    
+                </template>
+            </v-card>
+        </v-dialog>
+    </div>
+    <div style="height: 100%;top: 8vh;position: fixed; left: 0;width: 100%;z-index: 9;background-color: rgba(0, 0, 0, 0.2);"
+        v-if="micP"> </div>
+
+    <div class="answer">
+        <div v-for="(item, index) in message" :key="index" :class="item.type === 0 ? 'message-left' : 'message-right'">
+            <div class="message-container">
+                <div style="margin-right: 6px;" v-if="item.type === 0">
+                    <div class="avatar">
+                        <img style="width: 70%;height: 70%;" src="../assets/robot.svg" alt="">
+                    </div>
+                </div>
+
+                <div class="message-content">{{ item.value }}</div>
+                <div style="margin-left: 6px;" v-if="item.type === 1">
+                    <div class="avatar">
+                        <img style="width: 70%;height: 70%;" src="../assets/robot.svg" alt="">
+                    </div>
+                </div>
+            </div>
+
+        </div>
 
     </div>
     <div class="app-footer-container">
@@ -28,24 +53,26 @@
                 <div class="item seven"></div>
             </div>
         </div>
-        <img class="mic-img" src="../assets/maci.svg" alt="" @mousedown="startLongPress" @mouseup="endLongPress" 
-        @touchstart="startLongPress" @touchend="endLongPress" />
+        <img class="mic-img" src="../assets/maci.svg" alt="" @mousedown="startLongPress" @mouseup="endLongPress"
+            @touchstart="startLongPress" @touchend="endLongPress" />
     </div>
-    <div class="text-center mic-img-p" v-if="micP" >
-    <v-progress-circular :model-value="micValue" :rotate="360" :size="80" :width="12" color="teal">
-      <template v-slot:default> {{ micValue }} % </template>
-    </v-progress-circular>
-  </div>
+    <div class="text-center mic-img-p" v-if="micP">
+        <v-progress-circular :model-value="micValue" :rotate="360" :size="80" :width="12" color="teal">
+            <template v-slot:default> {{ micValue }} % </template>
+        </v-progress-circular>
+    </div>
+
     <audio v-show="false" ref="audioPlayer" controls></audio>
 </template>
 
 <script>
 import { ref, onMounted } from "vue";
-import { uploadAudio } from '@/api/mapApi.js';
+import { uploadAudio, setDeviceStatus } from '@/api/mapApi.js';
 
 export default {
     name: 'AppFooter',
     setup() {
+        const dialog = ref(false)
         const micValue = ref(100);
 
         const content = ref("Ask Celine");
@@ -66,10 +93,10 @@ export default {
         const endLongPress = (event) => {
             if (!micFlag) {
                 event.preventDefault();
-            isBegin.value = false
-            stopRecording();
+                isBegin.value = false
+                stopRecording();
             }
-            
+
 
         };
         const current = ref('Hello, l am Celine, your Caravan Enhanced Lifestyle Interactive Navigation Experience.l can help control your motorhomes systems and provide information or entertainment during your journey. How can l assist you today?')
@@ -107,34 +134,6 @@ export default {
         }
 
 
-        function formateMarkdown(message) {
-
-
-            let messageHTML = ` <div class="flex-left">
-                           <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAXNJREFUSEu1VktOwzAQfW7YYokbtLfwjvQktLdApBIgEcQtaE/SsPMtyA0QYZ0apoqjSWq7dkW8qZQ47zMzfq7AxEtMjI8gwb36mpOAN31Tu4TQ+xmy/FXLrU9okKBQjQFQl1ouXACFavYAcgGxfNHXlWuPl4DUZcg+zxCQALRoFz6XMQ7gUsgEoNTSi3Pygj68wmxFygzEY2fbVWPqT04O/34rA3wc0FZjJwOCjfrJDQzV9dJVG+CZN31A0DWVwGsBs0thMRC31hEfip7gQTUrAbwTaKimPtKuJ+R+znvmIqhKLZcE1JXsrtRy7QLeqO+nA0RtS2LH1gBr+yxIEJpz5rgX9K8EbCC21mEyQUxU8LEMEjBFveWUKaK9QQIeDeNZjiHiJ5tHx/gcHMMrBjCwZ1CBAYGNCRYRqVwn5XWGlG1uCnpymnZNt2EX5DLAznfpeGO2UA3FxjFVI1Z/FsZ7gxcOXYcR4Lj4yowBP7dn8n8Vv+TZ4BkEEwYiAAAAAElFTkSuQmCC" style="width: 20px;
-    height: 20px;
-    
-}" class="avatar mr10"/>
-                <div class="time-remark-wrapper" style=" display: flex;
-    flex-direction: column;">
-                    <span class="time" style="color: rgba(180, 187, 196);
-    font-size: 12px;
-    margin-bottom: 5px;">${getNowTime()}</span>
-                    <div style="padding: 8px;
-    border-radius: 8px;background-color: rgb(244, 246, 248);
-    margin-bottom: 20px;
-    padding: 10px 15px;    word-wrap:break-word;
-
-word-break:normal; " class="message bot-message" style="display: inline-block;">
-                        ${message}
-                    </div>
-                </div>
-              
-            </div>`
-
-            return messageHTML
-
-        }
 
         let micFlag = false
         let interval = null;
@@ -143,29 +142,24 @@ word-break:normal; " class="message bot-message" style="display: inline-block;">
             micValue.value = 100;
             micP.value = true;
             interval = setInterval(() => {
-                
 
-                if(micValue.value < 0) {
+
+                if (micValue.value < 0) {
                     isBegin.value = false
                     stopRecording();
                     micFlag = true;
-                }else {
+                } else {
                     micValue.value -= 10;
                 }
             }, 1000)
-           
+
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
                 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 const input = audioContext.createMediaStreamSource(stream);
                 recorder = new WebAudioRecorder(input, {
                     workerDir: '/web-audio-recorder-js-master/lib/', // Adjust the path to the worker.js file
-                    onEncoderLoading: (recorder, encoding) => {
-                        console.log(`Loading ${encoding} encoder...`);
-                    },
-                    onEncoderLoaded: (recorder, encoding) => {
-                        console.log(`${encoding} encoder loaded`);
-                    }
+                    encoding: "wav"
                 });
 
                 recorder.onComplete = async (recorder, blob) => {
@@ -173,14 +167,20 @@ word-break:normal; " class="message bot-message" style="display: inline-block;">
 
                     const res = await uploadWav(blob);
 
-                    audioPlayer.value.src = res;
-                    audioPlayer.value.play();
+                    if (res) {
+                        audioPlayer.value.src = res;
+                        audioPlayer.value.play();
+                    }
+
+
                 };
+
+
 
                 recorder.setOptions({
                     timeLimit: 120,
                     encodeAfterRecord: true,
-                    mp3: { bitRate: 160 } // Set options for MP3 encoding
+
                 });
 
                 recorder.startRecording();
@@ -198,7 +198,7 @@ word-break:normal; " class="message bot-message" style="display: inline-block;">
             }
         };
         const uploadWav = async (audioBlob) => {
-        
+            current.value = null;
             const formData = new FormData();
             formData.append('audio', audioBlob);
 
@@ -206,35 +206,184 @@ word-break:normal; " class="message bot-message" style="display: inline-block;">
                 const response = await uploadAudio(formData);
                 content.value = "Ask Celine";
                 isBegin.value = false;
-                
-                current.value = response.data.text
-                let res = formateMarkdown(current.value)
-            const chatMessages = document.getElementById("chat-messages");
-            chatMessages.innerHTML = res;
-                answerItems.value.push(response.data.text)
-                return response.data.audio
+
+                const obj1 = {
+                    value: response.data.question,
+                    type: 1
+                }
+                message.value.push(obj1)
+                const obj = {
+                    value: response.data.text,
+                    type: 0
+                }
+
+                if (response.data.type == 'received') {
+                    dialog.value = true
+                    current.value = response.data
+                } else {
+                    message.value.push(obj)
+                    return response.data.audio
+                }
+
+
+
             } catch (error) {
                 console.error('Error uploading file:', error);
             }
         };
 
+        const message = ref([ {
+            value:"Hello! How can I assist you today? I'm here to help with anything related to your motorhome experience.",
+            type: 0
+        }
 
+
+        ])
+
+        const Agree = async () => {
+            dialog.value = false
+            const obj = {
+                value: current.value.text,
+                type: 0
+            }
+           
+
+            if ( current.value.question== 'Open doorstep.') {
+                const res = await setDeviceStatus({
+                    channel:2,
+                    status:true
+                })
+                audioPlayer.value.src = current.value.audio;
+                audioPlayer.value.play();
+                message.value.push(obj)
+            } else if ( current.value.question== 'Stop opening doorstep.') {
+                const res = await setDeviceStatus({
+                    channel:2,
+                    status:false
+                })
+                audioPlayer.value.src = current.value.audio;
+                audioPlayer.value.play();
+                message.value.push(obj)
+            } else if ( current.value.question== 'Closing doorstep.') {
+                const res = await setDeviceStatus({
+                    channel:1,
+                    status:true
+                })
+                audioPlayer.value.src = current.value.audio;
+                audioPlayer.value.play();
+                message.value.push(obj)
+            } else if ( current.value.question== 'Stop opening doorstep.') {
+                const res = await setDeviceStatus({
+                    channel:1,
+                    status:false
+                })
+                audioPlayer.value.src = current.value.audio;
+                audioPlayer.value.play();
+                message.value.push(obj)
+            } else if ( current.value.question== 'Open awnings.') {
+                const res = await setDeviceStatus({
+                    channel:4,
+                    status:true
+                })
+                audioPlayer.value.src = current.value.audio;
+                audioPlayer.value.play();
+                message.value.push(obj)
+            } else if ( current.value.question== 'Stop opening awnings.') {
+                const res = await setDeviceStatus({
+                    channel:4,
+                    status:false
+                })
+                audioPlayer.value.src = current.value.audio;
+                audioPlayer.value.play();
+                message.value.push(obj)
+            } else if ( current.value.question== 'Closing awnings.') {
+                const res = await setDeviceStatus({
+                    channel:3,
+                    status:true
+                })
+                audioPlayer.value.src = current.value.audio;
+                audioPlayer.value.play();
+                message.value.push(obj)
+            } else if ( current.value.question== 'Stop closing awnings.') {
+                const res = await setDeviceStatus({
+                    channel:3,
+                    status:false
+                })
+                audioPlayer.value.src = current.value.audio;
+                audioPlayer.value.play();
+                message.value.push(obj)
+            } else {
+                const obj = {
+                    value:'No such received.',
+                    type:0
+                }
+                message.value.push(obj)
+            }
+        }
+        const Disagree = () => {
+            dialog.value = false
+            const obj = {
+                value: 'disagree',
+                type: 0
+            }
+
+            message.value.push(obj)
+        }
         return {
             content,
             isBegin,
             audioPlayer,
             startLongPress,
-            endLongPress, answerItems, current, micValue, micP
+            endLongPress, answerItems, current, micValue, micP, message, dialog, Agree, Disagree
         };
     }
 };
 </script>
 
 <style scoped>
+.message-content {
+    height: auto;
+    background-color: #813df4;
+    color: white;
+    border-radius: 6px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 4px;
+}
+
+.avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #813df4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.message-container {
+    display: flex;
+    margin-bottom: 10px;
+    /* flex-direction: column; */
+}
+
+.message-left {
+    display: flex;
+    align-items: center;
+
+}
+
+.message-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
 .app-footer-container {
-    height: 100px;
+    height: 12vh;
     width: 100%;
-    position: fixed;
+    position: sticky;
     left: 0;
     bottom: 0;
     /* background-color: #8a151b; */
@@ -244,6 +393,7 @@ word-break:normal; " class="message bot-message" style="display: inline-block;">
     justify-content: center;
     align-items: center;
     font-family: 'Pacifico-1' !important;
+    z-index: 10
 }
 
 .mic-img {
@@ -372,10 +522,10 @@ word-break:normal; " class="message bot-message" style="display: inline-block;">
 }
 
 .answer {
-    width: 96%;
-    margin-left: 2%;
-    margin-top: 10px;
-    height: 80vh;
+    width: 100%;
+    padding: 10px 4px;
+    height: 82vh;
+    overflow-y: auto;
 
 }
 
@@ -417,12 +567,15 @@ word-break:normal; " class="message bot-message" style="display: inline-block;">
     padding: 10px 15px;
 
 }
+
 .v-progress-circular {
-  margin: 1rem;
+    margin: 1rem;
 }
+
 .mic-img-p {
     position: absolute;
-    left: 50%;top: 50%;
+    left: 50%;
+    top: 50%;
     transform: translate(-50%, -50%);
 
 

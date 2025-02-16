@@ -61,6 +61,11 @@ export const uploadAudio = (data) => {
     );
 }
 
+export const setDeviceStatus = (data) => {
+    return axiosInstanceWithToken.post(`/coolkit/setDeviceStatus`, data
+    );
+} 
+
 
 
 

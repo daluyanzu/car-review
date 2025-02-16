@@ -1,5 +1,5 @@
 ﻿<template>
-    <div style="width: 100%;display: flex;justify-content: space-around;">
+    <div style="position: sticky;top: 0; width: 100%;display: flex;justify-content: space-around;border-bottom: 1px solid  #d3d3d3;">
         <div class="app-header-container">
         <div class="head-picture">
           <v-img class="icon-img" src="../assets/icon1.png"></v-img>
@@ -55,7 +55,7 @@ onMounted(() => {
 
 <style scoped>
 .app-header-container {
-    height: 52px;
+    height: 6vh;
     width: 100%;
     display: flex;
     justify-content: center;
