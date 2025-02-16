@@ -247,10 +247,9 @@ export default {
                 type: 0
             }
            
-
             if ( current.value.question== 'Open door step.') {
                 const res = await setDeviceStatus({
-                    channel:2,
+                    channel:1,
                     status:'on'
                 })
                 audioPlayer.value.src = current.value.audio;
@@ -258,7 +257,7 @@ export default {
                 message.value.push(obj)
             } else if ( current.value.question== 'Stop opening door step.') {
                 const res = await setDeviceStatus({
-                    channel:2,
+                    channel:1,
                     status:'off'
                 })
                 audioPlayer.value.src = current.value.audio;
@@ -266,7 +265,7 @@ export default {
                 message.value.push(obj)
             } else if ( current.value.question== 'Closing door step.') {
                 const res = await setDeviceStatus({
-                    channel:1,
+                    channel:0,
                     status:'on'
                 })
                 audioPlayer.value.src = current.value.audio;
@@ -274,7 +273,7 @@ export default {
                 message.value.push(obj)
             } else if ( current.value.question== 'Stop opening door step.') {
                 const res = await setDeviceStatus({
-                    channel:1,
+                    channel:0,
                     status:'off'
                 })
                 audioPlayer.value.src = current.value.audio;
@@ -282,7 +281,7 @@ export default {
                 message.value.push(obj)
             } else if ( current.value.question== 'Open awnings.') {
                 const res = await setDeviceStatus({
-                    channel:4,
+                    channel:3,
                     status:'on'
                 })
                 audioPlayer.value.src = current.value.audio;
@@ -290,7 +289,7 @@ export default {
                 message.value.push(obj)
             } else if ( current.value.question== 'Stop opening awnings.') {
                 const res = await setDeviceStatus({
-                    channel:4,
+                    channel:3,
                     status:'off'
                 })
                 audioPlayer.value.src = current.value.audio;
@@ -298,7 +297,7 @@ export default {
                 message.value.push(obj)
             } else if ( current.value.question== 'Closing awnings.') {
                 const res = await setDeviceStatus({
-                    channel:3,
+                    channel:2,
                     status:'on'
                 })
                 audioPlayer.value.src = current.value.audio;
@@ -306,7 +305,7 @@ export default {
                 message.value.push(obj)
             } else if ( current.value.question== 'Stop closing awnings.') {
                 const res = await setDeviceStatus({
-                    channel:3,
+                    channel:2,
                     status:'off'
                 })
                 audioPlayer.value.src = current.value.audio;
